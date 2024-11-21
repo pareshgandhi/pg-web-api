@@ -1,0 +1,27 @@
+---
+
+name: PG Web Api
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_push:
+    runs_on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set short SHA
+        run: |
+          echo "SHORT_SHA=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_ENV
+      - name: Build docker image
+        run: |
+          docker build -t pareshgandhi/pg-web-api:${{ env.SHORT_SHA }} .
+      - name: Login to Dockerhub
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --passwd-stdin
+      - name: Push to Dockerhub
+        run: |
+          docker push pareshgandhi/pg-web-api:${{ env.SHORT_SHA }}
