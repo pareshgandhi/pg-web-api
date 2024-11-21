@@ -4,11 +4,19 @@ pipeline {
       PATH = "/usr/local/bin:${env.PATH}"
     }
     stages {
-        stage("Test") {
+        stage("Docker build") {
             steps {
                 sh """
                 docker compose build
                 """
+            }
+        }
+        stage("Docker push") {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                    sh "docker push pg-web-api:latest"
+                }
             }
         }
     }

@@ -1,8 +1,9 @@
 version: '3'
 
 services:
-  github-gists-api:
+  pg-web-api:
     build: .
+    image: pg-web-api:latest
     command: sh -c "uvicorn src.github_api_server:app --reload --port=8080 --host=0.0.0.0"
     platform: linux/amd64
     ports:
