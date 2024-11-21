@@ -4,7 +4,7 @@ pipeline {
         stage("Test") {
             steps {
                 sh """
-                docker run hello-world
+                /usr/local/bin/docker run hello-world
                 """
             }
         }
