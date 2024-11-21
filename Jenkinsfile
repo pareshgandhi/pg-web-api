@@ -3,6 +3,9 @@ pipeline {
     environment {
       PATH = "/usr/local/bin:${env.PATH}"
     }
+    triggers {
+        githubPush()
+    }
     stages {
         stage("Docker build") {
             steps {
