@@ -3,9 +3,7 @@ pipeline {
     stages {
         stage("Test") {
             steps {
-                sh """
-                /usr/local/bin/docker run hello-world
-                """
+                docker compose build
             }
         }
     }
