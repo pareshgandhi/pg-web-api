@@ -22,6 +22,6 @@ jobs:
       - name: Login to Dockerhub
         run: |
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-      - name: Push to Dockerhub
+      - name: Push to Dockerhub account
         run: |
           docker push pareshgandhi/pg-web-api:${{ env.SHORT_SHA }}
