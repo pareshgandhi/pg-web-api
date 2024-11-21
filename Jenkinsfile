@@ -15,7 +15,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                    sh "docker push pg-web-api:latest"
+                    sh "docker push pareshgandhi/pg-web-api:latest"
                 }
             }
         }
