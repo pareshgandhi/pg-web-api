@@ -13,7 +13,7 @@ pipeline {
         }
         stage("Test the built image") {
             steps {
-                sh "docker run -it pg-web-api:latest pytest tests/"
+                sh "docker run pg-web-api:latest pytest tests/"
             }
         }
         stage("Docker push") {
