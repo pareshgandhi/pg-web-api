@@ -6,30 +6,8 @@ services:
     command: sh -c "uvicorn src.github_api_server:app --reload --port=8080 --host=0.0.0.0"
     platform: linux/amd64
     ports:
-      - 8080:8080
+      - 8090:8080
     environment:
       - DOCKER_DEFAULT_PLATFORM=linux/amd64
     volumes:
       - .:/app
-  jenkins:
-    image: jenkins/jenkins:lts
-    privileged: true
-    user: root
-    ports:
-      - 8090:8080
-      - 50000:50000
-    container_name: jenkins
-    volumes:
-      - /Users/pareshgandhi/jenkins_compose/jenkins_configuration:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-  agent:
-    depends_on:
-      - jenkins
-    image: jenkins/ssh-agent:debian-jdk17
-    privileged: true
-    user: root
-    container_name: agent
-    expose:
-      - 22
-    environment:
-      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDlGonImEwVjOoqMoJUGo1Ta5krgU21mCrU5rbuQDdNWwYytbJLd8c8bYgYyt7p5xmSmyu27+oIvY2t+UPgU+z0hUwJHYV1O7I+9e6QWG/5GyaV7ujrooPZGYETw5wvWaKVGlTfyDgotBBiv4HmfY2AD3lzA2//4CWlP91EAH+I73J+gvmqOdF7y0IuicX0kRac2jdJG5qQwbBMYlJP4BzOxR7W2mfmwTxaWRhw/mdleFbsUntG8YrcNv5Yy3XZEqgwrEi9zR57QTtLJiMQxlSofi8Wno3drsVvoB4cL6Sf1CWPH33N2EovjKpdgtCfJnmgK2GUrKJq8CxqmegwqGR1JspbjIq5ANLpzI2D/eWkDm4cEir1enWQTwjaaoKgDuCuH84OQ175Rpn+9O7aAPSD+JxW1MqkdI/CX4Nv9Nv60GrW3tuSbJc7WjrkFpPQuJm6skQDidD3HTEl/pr+sfSGskriX1/FZs5sNw4QQrZ78pu995syJD5o7KB3r74ExO0= pareshgandhi@Pareshs-MacBook-Pro.local
